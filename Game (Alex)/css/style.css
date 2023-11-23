@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "Chilo";
+  src: url("../fonts/CHLORINP.TTF") format("truetype");
+}
+
+* {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+body {
+  background-image: url("../img/bg.jpg");
+  background-size: cover;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+.gamespace {
+  width: 45vw;
+  height: 45vw;
+  margin: 2vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.spacer {
+  width: calc(33.33% - 8px);
+  height: calc(33.33% - 8px);
+  margin: 4px;
+  position: relative;
+}
+
+#pipe {
+  width: 52%;
+  height: 50%;
+  z-index: 1;
+  left: 25%;
+  top: 50%;
+  filter: drop-shadow(0 0px 20px rgba(238, 255, 0, 0.651));
+}
+
+.item {
+  width: 40%;
+  height: 45%;
+  left: 30%;
+  top: 50%;
+  display: none;
+}
+
+.spacer img {
+  position: absolute;
+}
+
+.animation {
+  animation: moveItem 2s;
+  display: flex;
+}
+
+.right{
+  position: relative;
+  width: 70vb;
+}
+
+.scorebox {
+  height: 20vh;
+  width: 70vb;
+  display: flex;
+  justify-content: center;
+}
+
+#scoretext {
+  font-family: "Chilo", sans-serif;
+  width: 100%;
+  height: auto;
+  margin-top: 20%;
+  font-size: 10vh;
+  text-align: center;
+  text-decoration: none;
+}
+
+.lifes{
+  width: 70vb;
+  height: auto;
+  justify-content: center;
+  margin-top: 50px;
+  display: flex;
+}
+.life{
+  width: 60px;
+  height: 60px;
+  display: flex;
+  margin: 10px;
+}
+.site1 {
+  margin: 0px;
+  border: 0px;
+  display: flex;
+}
+#site1{
+  display: flex;
+}
+#site2{
+  display: flex;
+}
+@keyframes moveItem {
+  0% {
+    top: 50%;
+  }
+  50% {
+    top: 2%;
+    width: 45%;
+  }
+  70% {
+    width: 40%;
+  }
+  100% {
+    top: 50%;
+  }
+}
