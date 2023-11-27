@@ -1,9 +1,8 @@
-* {
+/** {
     outline: 1PX dotted purple;
-}
+} */
 
 div {
-    margin-top: -1px;
     vertical-align: top;
 }
 
