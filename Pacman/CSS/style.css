@@ -4,17 +4,18 @@
 
 div {
     vertical-align: top;
+    background-size: cover;
 }
 
 #game{
-    background-color: black;
-    width: auto;
+    
 }
 
 .pacman {
     width: 50px;
     height: 50px;
     background-image: url('../IMG/pacman.gif');
+    background-color: black;
     display: inline-block;
 }
 
@@ -22,6 +23,7 @@ div {
     width: 50px;
     height: 50px;
     background-image: url('../IMG/wall.png');
+    background-color: black;
     display: inline-block;
 }
 
@@ -29,6 +31,7 @@ div {
     width: 50px;
     height: 50px;
     background-image: url('../IMG/food.png');
+    background-color: black;
     display: inline-block;
 }
 
@@ -36,5 +39,14 @@ div {
     width: 50px;
     height: 50px;
     background-image: url('../IMG/blank.png');
+    background-color: black;
+    display: inline-block;
+}
+
+.ghostOrange{
+    width: 50px;
+    height: 50px;
+    background-image: url('../IMG/ghostOrange.png');
+    background-color: black;
     display: inline-block;
 }
