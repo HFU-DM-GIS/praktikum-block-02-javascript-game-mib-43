@@ -56,16 +56,16 @@ draw();
         console.log(map[y])
         for (let x = 0; x < map[y].length; x++) {
             if (map[y][x] === 1) {
-                worldHTML += "<div class='wall'></div>";
+                drawHTML += "<div class='wall'></div>";
             } else if (map[y][x] === 2) {
-                worldHTML += "<div class='pacman'></div>";
+                drawHTML += "<div class='pacman'></div>";
             } else if (map[y][x] === 3 {
-                worldHTML += "<div class='food'></div>";
+                drawHTML += "<div class='food'></div>";
             } else if (map[y][x] === 4) {
-                worldHTML += "<div class='blank'></div>";
+                drawHTML += "<div class='blank'></div>";
             }
         }
-        worldHTML += "<br>";
+        drawHTML += "<br>";
     }
-    document.getElementById('world').innerHTML = worldHTML;
+    document.getElementById('game').innerHTML = drawHTML;
 } */
