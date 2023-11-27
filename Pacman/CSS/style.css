@@ -6,58 +6,35 @@ div {
     vertical-align: top;
 }
 
+#game{
+    background-color: black;
+    width: auto;
+}
+
 .pacman {
     width: 50px;
     height: 50px;
-    background-image: url('../src/pacman.gif');
+    background-image: url('../IMG/pacman.gif');
     display: inline-block;
 }
 
 .wall {
     width: 50px;
     height: 50px;
-    background-image: url('../src/wall.png');
+    background-image: url('../IMG/wall.png');
     display: inline-block;
 }
 
 .food {
     width: 50px;
     height: 50px;
-    background-image: url('../src/food.png');
-    display: inline-block;
-}
-
-.pill {
-    width: 50px;
-    height: 50px;
-    background-image: url('../src/pill.png');
+    background-image: url('../IMG/food.png');
     display: inline-block;
 }
 
 .blank {
     width: 50px;
     height: 50px;
-    background-image: url('../src/blank.png');
-    display: inline-block;
-}
-
-.line {
-    width: 50px;
-    height: 50px;
-    background-image: url('../src/line.png');
-    display: inline-block;
-}
-
-.corner {
-    width: 50px;
-    height: 50px;
-    background-image: url('../src/corner.png');
-    display: inline-block;
-}
-
-.t {
-    width: 50px;
-    height: 50px;
-    background-image: url('../src/t.png');
+    background-image: url('../IMG/blank.png');
     display: inline-block;
 }
