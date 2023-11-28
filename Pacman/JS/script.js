@@ -75,9 +75,24 @@ var mapcollection = [
     [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ]),
+  (chatgptmap = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
+    [1, 3, 3, 1, 3, 1, 3, 1, 3, 1, 8, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 1],
+    [1, 3, 1, 1, 3, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1, 3, 3, 3, 1],
+    [1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
+    [1, 3, 1, 1, 3, 3, 3, 3, 3, 1, 1, 3, 1, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1],
+    [1, 3, 3, 3, 1, 3, 2, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3, 1, 1],
+    [1, 3, 1, 1, 3, 3, 3, 3, 3, 1, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1],
+    [1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 1],
+    [1, 3, 1, 1, 3, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1, 1, 3, 1, 1],
+    [1, 3, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 1, 3, 1, 3, 3, 1, 3, 1, 3, 3, 3, 1],
+    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  ]),
 ];
 
-var map = mapAlex; //Auswahl der Map
+var map = chatgptmap; //Auswahl der Map
 
 function draw() {
     let drawHTML = '';
@@ -87,27 +102,27 @@ function draw() {
         for (let x = 0; x < map[y].length; x++) {
             switch (map[y][x]) {
                 case 1:
-                    drawHTML += "<div class='wall'></div>";
+                    drawHTML += "<div class='wall asset'></div>";
                     break;
                 
                 case 2:
-                    drawHTML += "<div class='pacman'></div>";
+                    drawHTML += "<div class='pacman asset'></div>";
                     break;
                     
                 case 3:
-                    drawHTML += "<div class='food'></div>";
+                    drawHTML += "<div class='food asset'></div>";
                     break;
                     
                 case 4:
-                    drawHTML += "<div class='blank'></div>";
+                    drawHTML += "<div class='blank asset'></div>";
                     break;
 
                 case 8:
-                    drawHTML += "<div class='ghostOrange'></div>";
+                    drawHTML += "<div class='ghostOrange asset'></div>";
                     break;
 
                 default:
-                    drawHTML += "<div class='blank'></div>";
+                    drawHTML += "<div class='blank asset'></div>";
                     console.error("Undefined Element");
                     break;
             }

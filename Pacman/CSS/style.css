@@ -7,46 +7,28 @@ div {
     background-size: cover;
 }
 
-#game{
-    
-}
-
 .pacman {
-    width: 50px;
-    height: 50px;
     background-image: url('../IMG/pacman.gif');
-    background-color: black;
-    display: inline-block;
 }
 
 .wall {
-    width: 50px;
-    height: 50px;
     background-image: url('../IMG/wall.png');
-    background-color: black;
-    display: inline-block;
 }
-
 .food {
-    width: 50px;
-    height: 50px;
     background-image: url('../IMG/food.png');
-    background-color: black;
-    display: inline-block;
 }
 
 .blank {
-    width: 50px;
-    height: 50px;
-    background-image: url('../IMG/blank.png');
-    background-color: black;
-    display: inline-block;
+    background-image: url('../IMG/blank.png');  
 }
 
 .ghostOrange{
-    width: 50px;
-    height: 50px;
     background-image: url('../IMG/ghostOrange.png');
+}
+
+.asset{
+    width: 32px;
+    height: 32px;
     background-color: black;
     display: inline-block;
 }
