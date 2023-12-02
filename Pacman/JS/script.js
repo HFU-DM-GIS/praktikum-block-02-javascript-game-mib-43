@@ -8,15 +8,17 @@
 // 8 = ghost orange
 
 var defaultmap, mapNico, mapAli, mapDome, mapAlex;
+var coinCounter = 0;
 
-class Pacman{
-  constructor(){
+class Pacman {
+  constructor() {
     for (let y = 0; y < map.length; y++) {
       console.log(map[y])
       for (let x = 0; x < map[y].length; x++) {
-        if(map[y][x] === 2) {
+        if (map[y][x] === 2) {
           this.x = x;
           this.y = y;
+          console.log(x + "   " + y);
         }
       }
     }
@@ -26,8 +28,8 @@ class Pacman{
 
 var mapcollection = [
   (defaultmap = [
-    [1, 1, 1, 1, 1],
-    [1, 2, 3, 4, 1],
+    [1, 1, 2, 1, 1],
+    [1, 3, 3, 4, 1],
     [1, 1, 1, 1, 1],
   ]),
   (mapNico = [
@@ -113,76 +115,107 @@ var mapcollection = [
   ]),
 ];
 
-var map = chatgptmap; //Auswahl der Map
+var map = mapAlex; //Auswahl der Map
 
 function draw() {
-    let drawHTML = '';
+  let drawHTML = '';
 
-    for (let y = 0; y < map.length; y++) {
-        console.log(map[y])
-        for (let x = 0; x < map[y].length; x++) {
-            switch (map[y][x]) {
-                case 1:
-                    drawHTML += "<div class='wall asset'></div>";
-                    break;
-                
-                case 2:
-                    drawHTML += "<div class='pacman asset'></div>";
-                    break;
-                    
-                case 3:
-                    drawHTML += "<div class='food asset'></div>";
-                    break;
-                    
-                case 4:
-                    drawHTML += "<div class='blank asset'></div>";
-                    break;
+  for (let y = 0; y < map.length; y++) {
+    console.log(map[y])
+    for (let x = 0; x < map[y].length; x++) {
+      switch (map[y][x]) {
+        case 1:
+          drawHTML += "<div class='wall asset'></div>";
+          break;
 
-                case 5:
-                    drawHTML += "<div class='ghostPink asset'></div>";
-                    break;  
+        case 2:
+          drawHTML += "<div id= 'pacRotate' class='pacman asset'></div>";
+          break;
 
-                case 8:
-                    drawHTML += "<div class='ghostOrange asset'></div>";
-                    break;
+        case 3:
+          drawHTML += "<div class='food asset'></div>";
+          break;
 
-                default:
-                    drawHTML += "<div class='blank asset'></div>";
-                    console.error("Undefined Element");
-                    break;
-            }
-        }
-        drawHTML += "<br>";
+        case 4:
+          drawHTML += "<div class='blank asset'></div>";
+          break;
+
+        case 5:
+          drawHTML += "<div class='ghostPink asset'></div>";
+          break;
+
+        case 8:
+          drawHTML += "<div class='ghostOrange asset'></div>";
+          break;
+
+        default:
+          drawHTML += "<div class='blank asset'></div>";
+          console.error("Undefined Element");
+          break;
+      }
     }
-    document.getElementById('game').innerHTML = drawHTML;        
+    drawHTML += "<br>";
+  }
+  document.getElementById('game').innerHTML = drawHTML;
 }
 
 draw();
 
 let pacman = new Pacman();
 
-addEventListener("keypress", function(event){
-  console.log(event);
-  if(event.key === "w") {
-    // move up
-    movePacMan(up[-1][0]);
+let pacmanCss;
+
+addEventListener("keypress", function (event) {
+  //console.log(event);
+  switch (event.key) {
+    case "w":
+      // move up
+      movePacMan(0, -1);
+      draw();
+      pacmanCss = document.getElementById('pacRotate');
+      pacmanCss.style.transform = 'rotate(270deg)';
+      break;
+
+    case "a":
+      //move left
+      movePacMan(-1, 0);
+      draw();
+      pacmanCss = document.getElementById('pacRotate');
+      pacmanCss.style.transform = 'scaleX(-1)';
+      break;
+
+    case "s":
+      //move down
+      movePacMan(0, 1);
+      draw();
+      pacmanCss = document.getElementById('pacRotate');
+      pacmanCss.style.transform = 'rotate(90deg)';
+      break;
+
+    case "d":
+      //move right
+      movePacMan(1, 0);
+      draw();
+      pacmanCss = document.getElementById('pacRotate');
+      pacmanCss.style.transform = 'rotate(0deg)';
+      break;
+  
+    default:
+      break;
   }
-  else if(event.key === "a") {
-    //move left
-    movePacMan(left[0][-1]);
-  }
-  else if(event.key === "s") {
-    //move down
-    movePacMan(down[1][0]);
-  }
-  else if(event.key === "d") {
-    //move right
-    movePacMan(right[0][1]);
-  }
+  console.warn(pacmanCss);
 });
 
-function movePacMan(move) {
-    this.map[pacman.x][pacman.y] = 4;
-    this.map[pacman.x + move.x][pacman.y + move.y] = 2;
-    draw();
+function movePacMan(x, y) {
+  //console.log(pacman.x + " " + pacman.y);
+  //console.log(map[1][1]);
+  if(!(map[pacman.y + y][pacman.x + x] === 1)) {
+    map[pacman.y][pacman.x] = 4;
+    if(map[pacman.y + y][pacman.x + x] === 3)
+      coinCounter++;
+    map[pacman.y + y][pacman.x + x] = 2;
+    pacman.x += x;
+    pacman.y += y;
+  }
+  //console.log(pacman.x + " " + pacman.y);
 }
