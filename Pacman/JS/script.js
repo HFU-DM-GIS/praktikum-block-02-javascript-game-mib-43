@@ -13,17 +13,30 @@ var coinCounter = 0;
 class Pacman {
   constructor() {
     for (let y = 0; y < map.length; y++) {
-      console.log(map[y])
       for (let x = 0; x < map[y].length; x++) {
         if (map[y][x] === 2) {
           this.x = x;
           this.y = y;
-          console.log(x + "   " + y);
         }
       }
     }
   }
 };
+
+class Ghost {
+  constructor(id) {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === id) {
+          this.x = x;
+          this.y = y;
+          this.isCoverCoin = true;
+        }
+      }
+    }
+  }
+};
+
 
 
 var mapcollection = [
@@ -121,7 +134,6 @@ function draw() {
   let drawHTML = '';
 
   for (let y = 0; y < map.length; y++) {
-    console.log(map[y])
     for (let x = 0; x < map[y].length; x++) {
       switch (map[y][x]) {
         case 1:
@@ -169,12 +181,70 @@ function draw() {
 
 draw();
 
-let pacman = new Pacman();
+let pinkGhost = new Ghost(5);
+let redGhost = new Ghost(6);
+let cyanGhost = new Ghost(7);
+let orangeGhost = new Ghost(8);
 
+let ghostArray = [pinkGhost, redGhost, cyanGhost, orangeGhost];
+
+function moveGhost() {
+  for (let i = 0; i < ghostArray.length; i++) {
+    let x;
+    let y;
+    do {
+      switch (getRandomNumber()) {
+        case 0:
+          //move up
+          x = 0;
+          y = -1;
+          break;
+
+        case 1:
+          //right
+          x = 1;
+          y = 0;
+          break;
+
+        case 2:
+          //down
+          x = 0;
+          y = 1;
+          break;
+
+        case 3:
+          //left
+          x = -1;
+          y = 0;
+      
+        default:
+          break;
+      }
+    } while (map[ghostArray[i].y + y][ghostArray[i].x + x] === 1);
+
+    if(isCoverCoin) {
+      map[ghostArray[i].x][ghostArray[i].y];
+    }
+
+    map[ghostArray[i].y + y][ghostArray[i].x + x] = i + 5;
+    ghostArray[i].x += x;
+    ghostArray[i].y += y;
+  }
+
+  draw();
+}
+
+setInterval(moveGhost, 1000);
+
+function getRandomNumber() {
+  return Math.floor(Math.random() * 4);
+}
+
+
+let pacman = new Pacman();
 let pacmanCss;
 
 addEventListener("keypress", function (event) {
-  //console.log(event);
   switch (event.key) {
     case "w":
       // move up
@@ -211,12 +281,9 @@ addEventListener("keypress", function (event) {
     default:
       break;
   }
-  console.warn(pacmanCss);
 });
 
 function movePacMan(x, y) {
-  //console.log(pacman.x + " " + pacman.y);
-  //console.log(map[1][1]);
   if(!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
     if(map[pacman.y + y][pacman.x + x] === 3)
@@ -225,5 +292,4 @@ function movePacMan(x, y) {
     pacman.x += x;
     pacman.y += y;
   }
-  //console.log(pacman.x + " " + pacman.y);
 }
