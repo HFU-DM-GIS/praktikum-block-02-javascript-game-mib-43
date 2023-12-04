@@ -216,17 +216,17 @@ function moveGhost() {
           //left
           x = -1;
           y = 0;
-      
+          break;
         default:
           break;
       }
     } while (map[ghostArray[i].y + y][ghostArray[i].x + x] === 1);
 
     if(ghostArray[i].isCoverCoin) {
-      map[ghostArray[i].x][ghostArray[i].y] = 3;
+      map[ghostArray[i].y][ghostArray[i].x] = 3;
     }
     else {
-      map[ghostArray[i].x][ghostArray[i].y] = 4;
+      map[ghostArray[i].y][ghostArray[i].x] = 4;
     }
 
     if(map[ghostArray[i].y + y][ghostArray[i].x + x] === 3) {
@@ -240,11 +240,11 @@ function moveGhost() {
     ghostArray[i].x += x;
     ghostArray[i].y += y;
   }
-
+  console.warn(ghostArray[0].x + "  " + ghostArray[0].y);
   draw();
 }
 
-setInterval(moveGhost, 1000);
+setInterval(moveGhost, 500);
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 4);
