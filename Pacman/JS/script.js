@@ -1,12 +1,13 @@
 // 1 = wall;
 // 2 = pacman;
-// 3 = food;
+// 3 = coin;
 // 4 = blank;
 // 5 = ghost pink
 // 6 = ghost red
 // 7 = ghost cyan
 // 8 = ghost orange
 
+var isGameRunning = true;
 var defaultmap, mapNico, mapAli, mapDome, mapAlex;
 var coinCounter = 0;
 
@@ -36,8 +37,6 @@ class Ghost {
     }
   }
 };
-
-
 
 var mapcollection = [
   (defaultmap = [
@@ -131,55 +130,77 @@ var mapcollection = [
 var map = mapAlex; //Auswahl der Map
 
 function draw() {
-  let drawHTML = '';
+  if (isGameRunning) {
+    let drawHTML = '';
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        switch (map[y][x]) {
+          case 1:
+            drawHTML += "<div class='wall asset'></div>";
+            break;
 
-  for (let y = 0; y < map.length; y++) {
-    for (let x = 0; x < map[y].length; x++) {
-      switch (map[y][x]) {
-        case 1:
-          drawHTML += "<div class='wall asset'></div>";
-          break;
+          case 2:
+            drawHTML += "<div id= 'pacRotate' class='pacman asset'></div>";
+            break;
 
-        case 2:
-          drawHTML += "<div id= 'pacRotate' class='pacman asset'></div>";
-          break;
+          case 3:
+            drawHTML += "<div class='food asset'></div>";
+            break;
 
-        case 3:
-          drawHTML += "<div class='food asset'></div>";
-          break;
+          case 4:
+            drawHTML += "<div class='blank asset'></div>";
+            break;
 
-        case 4:
-          drawHTML += "<div class='blank asset'></div>";
-          break;
+          case 5:
+            drawHTML += "<div class='ghostPink asset'></div>";
+            break;
 
-        case 5:
-          drawHTML += "<div class='ghostPink asset'></div>";
-          break;
-        
-        case 6:
-          drawHTML += "<div class='ghostRed asset'></div>";
-          break;
-        
-        case 7:
-          drawHTML += "<div class='ghostCyan asset'></div>";
-          break;
+          case 6:
+            drawHTML += "<div class='ghostRed asset'></div>";
+            break;
 
-        case 8:
-          drawHTML += "<div class='ghostOrange asset'></div>";
-          break;
+          case 7:
+            drawHTML += "<div class='ghostCyan asset'></div>";
+            break;
 
-        default:
-          drawHTML += "<div class='blank asset'></div>";
-          console.error("Undefined Element");
-          break;
+          case 8:
+            drawHTML += "<div class='ghostOrange asset'></div>";
+            break;
+
+          default:
+            drawHTML += "<div class='blank asset'></div>";
+            console.error("Undefined Element");
+            break;
+        }
       }
+      drawHTML += "<br>";
     }
-    drawHTML += "<br>";
+    document.getElementById('game').innerHTML = drawHTML;
+    collision();
+    winCheck();
   }
-  document.getElementById('game').innerHTML = drawHTML;
 }
 
-draw();
+function countCoins() {
+  let coinCounter = 4;
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      if (map[y][x] === 3) {
+        coinCounter++;
+      }
+    }
+  }
+  return coinCounter;
+}
+
+function winCheck() {
+  console.error(emptyCoins - coinCounter);
+  if (emptyCoins - coinCounter <= 0) {
+    clearInterval(moveGhostInterval);
+    isGameRunning = false;
+    console.error("win");
+  }
+}
 
 let pinkGhost = new Ghost(5);
 let redGhost = new Ghost(6);
@@ -222,14 +243,14 @@ function moveGhost() {
       }
     } while (map[ghostArray[i].y + y][ghostArray[i].x + x] === 1);
 
-    if(ghostArray[i].isCoverCoin) {
+    if (ghostArray[i].isCoverCoin) {
       map[ghostArray[i].y][ghostArray[i].x] = 3;
     }
     else {
       map[ghostArray[i].y][ghostArray[i].x] = 4;
     }
 
-    if(map[ghostArray[i].y + y][ghostArray[i].x + x] === 3) {
+    if (map[ghostArray[i].y + y][ghostArray[i].x + x] === 3) {
       ghostArray[i].isCoverCoin = true;
     }
     else {
@@ -240,16 +261,32 @@ function moveGhost() {
     ghostArray[i].x += x;
     ghostArray[i].y += y;
   }
-  console.warn(ghostArray[0].x + "  " + ghostArray[0].y);
+
   draw();
 }
 
-setInterval(moveGhost, 500);
+moveGhostInterval = setInterval(moveGhost, 500);
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 4);
 }
+let lives = 3;
+function collision() {
+  for (let i = 0; i < ghostArray.length; i++) {
+    if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
+      lives--;
+      console.log(lives);
+      if (lives <= 0) {
+        gameOver();
+      }
+    }
+  }
+}
 
+function gameOver() {
+  clearInterval(moveGhostInterval);
+  isGameRunning = false;
+}
 
 let pacman = new Pacman();
 let pacmanCss;
@@ -287,19 +324,21 @@ addEventListener("keypress", function (event) {
       pacmanCss = document.getElementById('pacRotate');
       pacmanCss.style.transform = 'rotate(0deg)';
       break;
-  
+
     default:
       break;
   }
 });
 
 function movePacMan(x, y) {
-  if(!(map[pacman.y + y][pacman.x + x] === 1)) {
+  if (!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
-    if(map[pacman.y + y][pacman.x + x] === 3)
+    if (map[pacman.y + y][pacman.x + x] === 3)
       coinCounter++;
     map[pacman.y + y][pacman.x + x] = 2;
     pacman.x += x;
     pacman.y += y;
   }
 }
+let emptyCoins = countCoins();
+draw();
