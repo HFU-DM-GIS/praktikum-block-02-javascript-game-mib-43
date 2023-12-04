@@ -147,6 +147,10 @@ function draw() {
         case 6:
           drawHTML += "<div class='ghostRed asset'></div>";
           break;
+        
+        case 7:
+          drawHTML += "<div class='ghostCyan asset'></div>";
+          break;
 
         case 8:
           drawHTML += "<div class='ghostOrange asset'></div>";
