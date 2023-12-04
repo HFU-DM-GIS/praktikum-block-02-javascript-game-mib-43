@@ -30,6 +30,10 @@ div {
     background-image: url('../IMG/ghostPink.png');
 }
 
+.ghostRed{
+    background-image: url('../IMG/ghostRed.png');
+}
+
 .asset{
     width: 32px;
     height: 32px;
