@@ -222,8 +222,18 @@ function moveGhost() {
       }
     } while (map[ghostArray[i].y + y][ghostArray[i].x + x] === 1);
 
-    if(isCoverCoin) {
-      map[ghostArray[i].x][ghostArray[i].y];
+    if(ghostArray[i].isCoverCoin) {
+      map[ghostArray[i].x][ghostArray[i].y] = 3;
+    }
+    else {
+      map[ghostArray[i].x][ghostArray[i].y] = 4;
+    }
+
+    if(map[ghostArray[i].y + y][ghostArray[i].x + x] === 3) {
+      ghostArray[i].isCoverCoin = true;
+    }
+    else {
+      ghostArray[i].isCoverCoin = false;
     }
 
     map[ghostArray[i].y + y][ghostArray[i].x + x] = i + 5;
