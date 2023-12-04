@@ -22,7 +22,7 @@ class Pacman {
       }
     }
   }
-};
+}
 
 class Ghost {
   constructor(id) {
@@ -36,7 +36,7 @@ class Ghost {
       }
     }
   }
-};
+}
 
 var mapcollection = [
   (defaultmap = [
@@ -131,7 +131,7 @@ var map = mapAlex; //Auswahl der Map
 
 function draw() {
   if (isGameRunning) {
-    let drawHTML = '';
+    let drawHTML = "";
     for (let y = 0; y < map.length; y++) {
       for (let x = 0; x < map[y].length; x++) {
         switch (map[y][x]) {
@@ -175,7 +175,7 @@ function draw() {
       }
       drawHTML += "<br>";
     }
-    document.getElementById('game').innerHTML = drawHTML;
+    document.getElementById("game").innerHTML = drawHTML;
     collision();
     winCheck();
   }
@@ -245,15 +245,13 @@ function moveGhost() {
 
     if (ghostArray[i].isCoverCoin) {
       map[ghostArray[i].y][ghostArray[i].x] = 3;
-    }
-    else {
+    } else {
       map[ghostArray[i].y][ghostArray[i].x] = 4;
     }
 
     if (map[ghostArray[i].y + y][ghostArray[i].x + x] === 3) {
       ghostArray[i].isCoverCoin = true;
-    }
-    else {
+    } else {
       ghostArray[i].isCoverCoin = false;
     }
 
@@ -297,32 +295,32 @@ addEventListener("keypress", function (event) {
       // move up
       movePacMan(0, -1);
       draw();
-      pacmanCss = document.getElementById('pacRotate');
-      pacmanCss.style.transform = 'rotate(270deg)';
+      pacmanCss = document.getElementById("pacRotate");
+      pacmanCss.style.transform = "rotate(270deg)";
       break;
 
     case "a":
       //move left
       movePacMan(-1, 0);
       draw();
-      pacmanCss = document.getElementById('pacRotate');
-      pacmanCss.style.transform = 'scaleX(-1)';
+      pacmanCss = document.getElementById("pacRotate");
+      pacmanCss.style.transform = "scaleX(-1)";
       break;
 
     case "s":
       //move down
       movePacMan(0, 1);
       draw();
-      pacmanCss = document.getElementById('pacRotate');
-      pacmanCss.style.transform = 'rotate(90deg)';
+      pacmanCss = document.getElementById("pacRotate");
+      pacmanCss.style.transform = "rotate(90deg)";
       break;
 
     case "d":
       //move right
       movePacMan(1, 0);
       draw();
-      pacmanCss = document.getElementById('pacRotate');
-      pacmanCss.style.transform = 'rotate(0deg)';
+      pacmanCss = document.getElementById("pacRotate");
+      pacmanCss.style.transform = "rotate(0deg)";
       break;
 
     default:
@@ -333,8 +331,7 @@ addEventListener("keypress", function (event) {
 function movePacMan(x, y) {
   if (!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
-    if (map[pacman.y + y][pacman.x + x] === 3)
-      coinCounter++;
+    if (map[pacman.y + y][pacman.x + x] === 3) coinCounter++;
     map[pacman.y + y][pacman.x + x] = 2;
     pacman.x += x;
     pacman.y += y;

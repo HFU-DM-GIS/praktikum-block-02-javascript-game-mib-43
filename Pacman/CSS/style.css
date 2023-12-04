@@ -14,31 +14,32 @@ div {
 .wall {
     background-image: url('../IMG/wall.png');
 }
+
 .food {
     background-image: url('../IMG/food.png');
 }
 
 .blank {
-    background-image: url('../IMG/blank.png');  
+    background-image: url('../IMG/blank.png');
 }
 
-.ghostOrange{
+.ghostOrange {
     background-image: url('../IMG/ghostOrange.png');
 }
 
-.ghostPink{
+.ghostPink {
     background-image: url('../IMG/ghostPink.png');
 }
 
-.ghostRed{
+.ghostRed {
     background-image: url('../IMG/ghostRed.png');
 }
 
-.ghostCyan{
+.ghostCyan {
     background-image: url('../IMG/ghostCyan.png');
 }
 
-.asset{
+.asset {
     width: 32px;
     height: 32px;
     background-color: black;
