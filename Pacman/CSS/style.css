@@ -2,6 +2,15 @@
     outline: 1PX dotted purple;
 } */
 
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    background-color: #181818;
+}
+
 div {
     vertical-align: top;
     background-size: cover;
@@ -13,6 +22,8 @@ div {
 
 .wall {
     background-image: url('../IMG/wall.png');
+    -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
 .food {
@@ -40,8 +51,8 @@ div {
 }
 
 .asset {
-    width: 32px;
-    height: 32px;
+    width: 72px;
+    height: 72px;
     background-color: black;
     display: inline-block;
 }
