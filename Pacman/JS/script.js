@@ -8,45 +8,18 @@
 // 8 = ghost orange
 
 var isGameRunning = true;
-var defaultmap, mapNico, mapAli, mapDome, mapAlex;
 var coinCounter = 0;
-
-class Pacman {
-  constructor() {
-    for (let y = 0; y < map.length; y++) {
-      for (let x = 0; x < map[y].length; x++) {
-        if (map[y][x] === 2) {
-          this.x = x;
-          this.y = y;
-          let rotation = "style = transform: rotate(0deg);";
-        }
-      }
-    }
-  }
-}
-
-class Ghost {
-  constructor(id) {
-    for (let y = 0; y < map.length; y++) {
-      for (let x = 0; x < map[y].length; x++) {
-        if (map[y][x] === id) {
-          this.x = x;
-          this.y = y;
-          this.isCoverCoin = true;
-        }
-      }
-    }
-  }
-}
+var score = 0;
+let lives = 30;
+let iskeydown = [false, false, false, false];
 
 var mapcollection = [
-  /*(testmap = [
-    [1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,5,4,1,6,4,1,7,4,1,8,4,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,3,3,3,3,3,3,3,3,3,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1],
-  ]),*/
+  (testmap = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
+    [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  ]),
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -100,10 +73,18 @@ var mapcollection = [
   ]),
 ];
 
-var map = mapcollection[getRandomNumber(3)]; //Auswahl der Map
-
+var mapRandNum = getRandomNumber(3);
+mapRandNum = 0;
+var map = mapcollection[mapRandNum];
 function draw() {
+  map = mapcollection[mapRandNum];
   if (isGameRunning) {
+    for (let index = 0; index < ghostArray.length; index++) {
+      map[ghostArray[index].y][ghostArray[index].x] = index + 5;
+    }
+
+    map[pacman.y][pacman.x] = 2;
+
     let drawHTML = "";
     for (let y = 0; y < map.length; y++) {
       for (let x = 0; x < map[y].length; x++) {
@@ -155,25 +136,17 @@ function draw() {
   }
 }
 
-function countCoins() {
-  let coinCounter = 4;
-  for (let y = 0; y < map.length; y++) {
-    for (let x = 0; x < map[y].length; x++) {
-      if (map[y][x] === 3) {
-        coinCounter++;
+class Ghost {
+  constructor(id) {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === id) {
+          this.x = x;
+          this.y = y;
+          this.isCoverCoin = true;
+        }
       }
     }
-  }
-  console.log("Coins:" + coinCounter);
-  return coinCounter;
-}
-
-function winCheck() {
-  if (emptyCoins - coinCounter <= 0) {
-    clearInterval(moveGhostInterval);
-    isGameRunning = false;
-    console.log("win");
-    window.location.href = "win.html";
   }
 }
 
@@ -183,6 +156,45 @@ let cyanGhost = new Ghost(7);
 let orangeGhost = new Ghost(8);
 
 let ghostArray = [pinkGhost, redGhost, cyanGhost, orangeGhost];
+
+class Pacman {
+  constructor() {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === 2) {
+          this.x = x;
+          this.y = y;
+          let rotation = "style = transform: rotate(0deg);";
+        }
+      }
+    }
+  }
+}
+
+let pacman = new Pacman();
+
+let emptyCoins = countCoins();
+console.log("emptyCoins: " + emptyCoins);
+
+function countCoins() {
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      if (map[y][x] === 3) {
+        coinCounter++;
+      }
+    }
+  }
+  return coinCounter;
+}
+
+function winCheck() {
+  if (emptyCoins === score) {
+    clearInterval(moveGhostInterval);
+    isGameRunning = false;
+    console.log("win");
+    window.location.href = "win.html";
+  }
+}
 
 function moveGhost() {
   for (let i = 0; i < ghostArray.length; i++) {
@@ -230,20 +242,25 @@ function moveGhost() {
       ghostArray[i].isCoverCoin = false;
     }
 
-    map[ghostArray[i].y + y][ghostArray[i].x + x] = i + 5;
     ghostArray[i].x += x;
     ghostArray[i].y += y;
+    for (let j = 0; j < ghostArray.length; j++) {
+      if (
+        ghostArray[i].x === ghostArray[j].x &&
+        ghostArray[i].y === ghostArray[j].y &&
+        ghostArray[j].isCoverCoin
+      ) {
+        ghostArray[i].isCoverCoin = true;
+      }
+    }
   }
-  map[pacman.y][pacman.x] = 2;
   draw();
 }
-
-moveGhostInterval = setInterval(moveGhost, 500);
 
 function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
-let lives = 30;
+
 function collision() {
   for (let i = 0; i < ghostArray.length; i++) {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
@@ -252,23 +269,16 @@ function collision() {
         ghostArray[i].isCoverCoin = false;
       }
       lives--;
-      console.log(lives);
+      console.log("lives: " + lives);
       if (lives <= 0) {
-        gameOver();
+        clearInterval(moveGhostInterval);
+        isGameRunning = false;
+        window.location.href = "gameOver.html";
       }
     }
   }
 }
 
-function gameOver() {
-  clearInterval(moveGhostInterval);
-  isGameRunning = false;
-  window.location.href = "gameOver.html";
-}
-
-let pacman = new Pacman();
-let pacmanCss;
-let iskeydown = [false, false, false, false];
 addEventListener("keypress", function (event) {
   if (!iskeydown[0] && !iskeydown[1] && !iskeydown[2] && !iskeydown[3]) {
     switch (event.key) {
@@ -326,13 +336,16 @@ addEventListener("keyup", function (event) {
       break;
   }
 });
-3;
+
 function movePacMan(x, y) {
   if (!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
     if (map[pacman.y + y][pacman.x + x] === 3) {
-      coinCounter++;
-      console.log(emptyCoins - coinCounter);
+      score++;
+      console.clear();
+      console.log("emptyCoins: " + emptyCoins);
+      console.log("score:" + score);
+      console.log("lives: " + lives);
     }
 
     map[pacman.y + y][pacman.x + x] = 2;
@@ -340,5 +353,6 @@ function movePacMan(x, y) {
     pacman.y += y;
   }
 }
-let emptyCoins = countCoins();
+
+moveGhostInterval = setInterval(moveGhost, 500);
 draw();
