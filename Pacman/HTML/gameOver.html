@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="../CSS/losing.css" type="text/css" />
+</head>
+
+<body>
+    <div id = 'game-over'>
+        
+        <!--Game over screen-->
+        <img src="../IMG/ghostPink.png" alt="ghostPink">
+        <img id="pacman" src="../IMG/pacman.gif" alt="pacman">
+        <img src="../IMG/ghostRed.png" alt="ghostRed" style = "transform: scaleX(-1)">
+        <h1>GAME OVER!</h1>
+        <h3>BETTER LUCK NEXT TIME</h3>
+
+        <!--Button-->
+        <div id = 'button'>
+            <button type = 'reset' onclick = "window.location.href = 'game.html';">Try Again</button>
+            <button type = 'button' onclick = "window.location.href = 'menu.html';">Main Menu</button>
+        </div>
+    </div>
+</body>
+</html>

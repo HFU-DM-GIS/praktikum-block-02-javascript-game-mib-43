@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Pacfont";
+    src: url("../fonts/PacfontGood-yYye.ttf") format("truetype");
+  }
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(15, 7, 34);
+    color: #181818;
+    
+
+}
+
+#game-over {
+    text-align: center;
+    font-family: "Pacfont", sans-serif;
+}
+
+img{
+    width: 50px;
+    height: 50px;
+}
+
+h1, h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 0 0 10px #ffd90093, 0 0 20px #f2ff37, 0 0 30px #ffee00;
+}
+
+#button {
+    display: flex;
+    flex-direction: column;
+
+}
+
+button {
+    margin: 10px;
+    padding: 4px 2px;
+    text-align: center;
+    font-size: 16px;
+    font-family: "Pacfont", sans-serif;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #151515;
+    color: #c4c114;
+    border: 3px solid #0b4b80;
+    border-radius: 20px;
+    
+}
+
+button:hover {
+    background-color: #c4c114;
+    color: rgb(11, 70, 67);
+}
