@@ -32,6 +32,7 @@ class Ghost {
           this.x = x;
           this.y = y;
           this.isCoverCoin = true;
+          this.isCoverPacman = false;
         }
       }
     }
@@ -39,12 +40,7 @@ class Ghost {
 }
 
 var mapcollection = [
-  (defaultmap = [ //map1
-    [1, 1, 2, 1, 1],
-    [1, 3, 3, 4, 1],
-    [1, 1, 1, 1, 1],
-  ]),
-  (mapNico = [
+  (mapNico = [ //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 1],
     [1, 3, 5, 3, 3, 1, 1, 1, 3, 3, 8, 3, 1],
@@ -59,9 +55,9 @@ var mapcollection = [
     [1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ]),
-  (mapAli = [ //map2
+  (mapAli = [ //map1
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
+    [1, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 1],
     [1, 3, 1, 3, 1, 3, 1, 1, 1, 1, 1, 1, 3, 1],
     [1, 3, 1, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 1],
     [1, 3, 3, 3, 1, 3, 1, 3, 1, 3, 1, 1, 3, 1],
@@ -74,25 +70,10 @@ var mapcollection = [
     [1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 3, 3, 3, 1],
     [1, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 1, 3, 1],
     [1, 3, 1, 3, 1, 1, 1, 1, 1, 3, 3, 1, 3, 1],
-    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
+    [1, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ]),
-  (mapDome = [ //map3
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-  ]),
-  (mapAlex = [ //map4
+  (mapAlex = [ //map2
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 3, 5, 1, 3, 1, 3, 1, 3, 1, 8, 3, 1],
@@ -107,27 +88,9 @@ var mapcollection = [
     [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ]),
-  (chatgptmap = [ //map5
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
-    [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1],
-    [1, 3, 1, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 1],
-    [1, 3, 1, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1],
-    [1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 3, 3, 3, 1],
-    [1, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 1, 3, 1],
-    [1, 3, 1, 3, 1, 3, 3, 3, 1, 3, 1, 3, 3, 1],
-    [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1, 3, 1],
-    [1, 3, 3, 3, 1, 3, 2, 3, 3, 3, 1, 3, 3, 1],
-    [1, 3, 1, 3, 1, 3, 1, 1, 1, 3, 1, 1, 3, 1],
-    [1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 3, 3, 3, 1],
-    [1, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 1, 3, 1],
-    [1, 3, 1, 1, 1, 3, 1, 1, 1, 3, 3, 1, 3, 1],
-    [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]),
 ];
 
-var map = mapcollection[4]; //Auswahl der Map
+var map = mapcollection[getRandomNumber(3)]; //Auswahl der Map
 
 function draw() {
   if (isGameRunning) {
@@ -194,11 +157,12 @@ function countCoins() {
 }
 
 function winCheck() {
-  console.error(emptyCoins - coinCounter);
+  console.log(emptyCoins - coinCounter);
   if (emptyCoins - coinCounter <= 0) {
     clearInterval(moveGhostInterval);
     isGameRunning = false;
-    console.error("win");
+    console.log("win");
+    window.location.href = 'win.html';
   }
 }
 
@@ -214,7 +178,7 @@ function moveGhost() {
     let x;
     let y;
     do {
-      switch (getRandomNumber()) {
+      switch (getRandomNumber(4)) {
         case 0:
           //move up
           x = 0;
@@ -255,6 +219,16 @@ function moveGhost() {
       ghostArray[i].isCoverCoin = false;
     }
 
+    if (ghostArray[i].isCoverPacman) {
+      map[ghostArray[i].y][ghostArray[i].x] = 2;
+    }
+
+    if (map[ghostArray[i].y + y][ghostArray[i].x + x] === 2) {
+      ghostArray[i].isCoverPacman = true;
+    } else {
+      ghostArray[i].isCoverPacman = false;
+    }
+
     map[ghostArray[i].y + y][ghostArray[i].x + x] = i + 5;
     ghostArray[i].x += x;
     ghostArray[i].y += y;
@@ -265,8 +239,8 @@ function moveGhost() {
 
 moveGhostInterval = setInterval(moveGhost, 500);
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * 4);
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * max);
 }
 let lives = 3;
 function collision() {
@@ -284,6 +258,7 @@ function collision() {
 function gameOver() {
   clearInterval(moveGhostInterval);
   isGameRunning = false;
+  window.location.href = 'gameOver.html';
 }
 
 let pacman = new Pacman();
