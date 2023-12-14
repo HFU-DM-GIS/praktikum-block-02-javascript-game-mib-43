@@ -1,9 +1,9 @@
 @font-face {
     font-family: "Pacfont";
-    src: url("../fotnts/PacfontGood-yYye.ttf") format("truetype");
-  }
+    src: url("../fonts/PacfontGood-yYye.ttf") format("truetype");
+}
 
-body{
+body {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@ body{
     background-color: #181818;
 }
 
-h1{
+h1 {
     font-size: 15vh;
     font-family: "Pacfont", sans-serif;
     color: #FFFF00;
@@ -21,17 +21,17 @@ h1{
     text-shadow: 0 0 10px #ffd90093, 0 0 20px #f2ff37, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 60px #ffee00, 0 0 70px #c4b700;
 }
 
-img{
+img {
     height: 50px;
     width: 50px;
     margin-top: 20vh;
 }
 
-#pacman{
+#pacman {
     margin-left: 35px;
 }
 
-button{
+button {
     margin-top: 1vh;
     width: 55vb;
     height: 10vh;

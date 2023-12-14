@@ -2,7 +2,7 @@
     outline: 1PX dotted purple;
 } */
 
-body{
+body {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -22,8 +22,8 @@ div {
 
 .wall {
     background-image: url('../IMG/wall.png');
-    -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
-    box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
 .food {
