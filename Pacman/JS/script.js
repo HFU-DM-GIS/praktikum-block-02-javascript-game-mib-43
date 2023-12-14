@@ -18,6 +18,7 @@ class Pacman {
         if (map[y][x] === 2) {
           this.x = x;
           this.y = y;
+          let rotation = "";
         }
       }
     }
