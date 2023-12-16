@@ -143,7 +143,7 @@ class Ghost {
         if (map[y][x] === id) {
           this.x = x;
           this.y = y;
-          this.isCoverCoin = true;
+          this.isCoverCoin = false;
         }
       }
     }
@@ -265,7 +265,7 @@ function collision() {
   for (let i = 0; i < ghostArray.length; i++) {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
       if (ghostArray[i].isCoverCoin) {
-        coinCounter++;
+        score++;
         ghostArray[i].isCoverCoin = false;
       }
       lives--;
