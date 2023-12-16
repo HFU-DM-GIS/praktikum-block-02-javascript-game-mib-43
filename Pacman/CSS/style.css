@@ -8,13 +8,20 @@
 }
 
 body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    margin: 0px;
+    background-color: #181818;
+}
+.gamecontainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0px;
-    background-color: #181818;
+    width: 70%;
 }
 .gamebar{
     display: flex;
@@ -94,4 +101,12 @@ div {
     height: 5vh;
     background-color: black;
     display: inline-block;
+}
+
+.music{
+    width: 30%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 100%;
 }
