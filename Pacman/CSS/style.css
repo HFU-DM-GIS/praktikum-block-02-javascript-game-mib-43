@@ -1,14 +1,53 @@
-/** {
-    outline: 1PX dotted purple;
-} */
+@font-face {
+    font-family: "Pacfont";
+    src: url("../fonts/PacfontGood-yYye.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Crackman";
+    src: url("../fonts/CrackMan.TTF") format("truetype");
+}
 
 body {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0px;
     background-color: #181818;
+}
+.gamebar{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.scorecontainer{
+    display: flex;
+    margin-right: 15vh;
+    align-items: end;
+}
+#scoretitle{
+    color: #FFFF00;
+    font-size: 5vh;
+    font-family: "Pacfont", sans-serif;
+    margin: 0;
+    text-align: left;
+    height: auto;
+}
+#score{
+    color: #FFFF00;
+    font-size: 5vh;
+    font-family: "Crackman", sans-serif;
+    margin: 0;
+    text-align: left;
+    height: auto;
+}
+#lives{
+    color: #FFFF00;
+    font-size: 10vh;
+    font-family: "Pacfont", sans-serif;
+    margin: 0;
+    height: 9.2vh;
 }
 
 div {

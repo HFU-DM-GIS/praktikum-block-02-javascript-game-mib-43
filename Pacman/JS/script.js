@@ -10,14 +10,14 @@
 var isGameRunning = true;
 var coinCounter = 0;
 var score = 0;
-let lives = 30;
+let lives = 3;
 let iskeydown = [false, false, false, false];
 
 var mapcollection = [
   (testmap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
-    [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1],
+    [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ]),
   (mapNico = [
@@ -84,6 +84,35 @@ function draw() {
     }
 
     map[pacman.y][pacman.x] = 2;
+
+    for (let index = 0; index < ghostArray.length; index++) {
+      if(pacman.x === ghostArray[index].x && pacman.y == ghostArray[index].y){
+        lives--;
+        switch (lives) {
+          case 2:
+            document.getElementById("lives").innerHTML = "cc";
+            break;
+          case 1:
+            document.getElementById("lives").innerHTML = "c";
+            break;
+          case 0:
+            document.getElementById("lives").innerHTML = "";
+            break;
+        }
+        break;
+      }
+    }
+
+    if (lives <= 0) {
+      clearInterval(moveGhostInterval);
+      isGameRunning = false;
+      window.location.href = "gameOver.html";
+    }
+
+    console.clear();
+    console.log("emptyCoins: " + emptyCoins);
+    console.log("score:" + score);
+    console.log("lives: " + lives);
 
     let drawHTML = "";
     for (let y = 0; y < map.length; y++) {
@@ -266,14 +295,8 @@ function collision() {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
       if (ghostArray[i].isCoverCoin) {
         score++;
+        document.getElementById("score").innerHTML = ": " + score
         ghostArray[i].isCoverCoin = false;
-      }
-      lives--;
-      console.log("lives: " + lives);
-      if (lives <= 0) {
-        clearInterval(moveGhostInterval);
-        isGameRunning = false;
-        window.location.href = "gameOver.html";
       }
     }
   }
@@ -342,10 +365,7 @@ function movePacMan(x, y) {
     map[pacman.y][pacman.x] = 4;
     if (map[pacman.y + y][pacman.x + x] === 3) {
       score++;
-      console.clear();
-      console.log("emptyCoins: " + emptyCoins);
-      console.log("score:" + score);
-      console.log("lives: " + lives);
+      document.getElementById("score").innerHTML = ": " + score
     }
 
     map[pacman.y + y][pacman.x + x] = 2;
@@ -363,5 +383,5 @@ function movePacMan(x, y) {
   }
 }
 
-moveGhostInterval = setInterval(moveGhost, 500);
+moveGhostInterval = setInterval(moveGhost, 50000);
 draw();
