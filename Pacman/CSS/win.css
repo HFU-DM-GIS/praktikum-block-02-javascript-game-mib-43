@@ -26,16 +26,18 @@ body {
 
 .win-screen h1 {
     font-family: "Pacfont", sans-serif;
-    font-size: 82px;
-    margin-bottom: 10px;
+    font-size: 92px;
+    margin-bottom: 80px;
     color: #ff0;
+    text-shadow: 0 0 8px #ffd90093, 0 0 20px #f2ff37, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 60px #ffee00, 0 0 70px #c4b700;
 }
 
 .win-screen h2 {
     font-family: "Pacfont", sans-serif;
     font-size: 36px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     color: #ff0;
+    text-shadow: 0 0 4px #ffd90093, 0 0 20px #f2ff37, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 60px #ffee00, 0 0 70px #c4b700;
 }
 
 .pacman-gif {
@@ -44,39 +46,46 @@ body {
 }
 
 .button-container {
-    margin-top: 40px;
+    margin-top: 100px;
 }
 
 .menu-button {
-    font-family: "Pacfont", sans-serif;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #000;
-    background-color: #ff0;
-    border: 2px solid #ff0;
-    border-radius: 20px;
+    margin: 50px;
+    padding: 25px 100px;
+    text-align: center;
     font-size: 24px;
+    font-family: "Pacfont", sans-serif;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #151515;
+    color: #c4c114;
+    border: 3px solid;
+    border-color: #FFFF00;
+    border-radius: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .menu-button:hover {
-    background-color: #181818;
-    color: #ff0;
+    background-color: #c4c114;
+    color: #151515;
 }
 
 .restart-button {
-    font-family: "Pacfont", sans-serif;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #000;
-    background-color: #ff0;
-    border: 2px solid #ff0;
-    border-radius: 20px;
+    margin: 50px;
+    padding: 25px 100px;
+    text-align: center;
     font-size: 24px;
-    transition: background-color 0.3s, color 0.3s;
+    font-family: "Pacfont", sans-serif;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #151515;
+    color: #c4c114;
+    border: 3px solid;
+    border-color: #FFFF00;
+    border-radius: 20px;
 }
 
 .restart-button:hover {
-    background-color: #181818;
-    color: #ff0;
+    background-color: #c4c114;
+    color: #151515;
 }
