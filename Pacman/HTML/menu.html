@@ -23,6 +23,13 @@
         <img src="../IMG/food.png" alt="coin">
         <img src="../IMG/food.png" alt="coin">
     </div>
+    <script>
+        function startSound(){
+            let beginningSound = new Audio('../Audio/pacman_beginning.wav');
+            beginningSound.play();
+        }
+        startSound();
+    </script>
     <Button id="startGame" onclick="window.location.href = 'game.html'">StArT gAmE</Button>
 </body>
 </html>

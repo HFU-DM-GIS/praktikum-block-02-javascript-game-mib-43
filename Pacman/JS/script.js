@@ -360,6 +360,8 @@ addEventListener("keyup", function (event) {
   }
 });
 
+let moveSound = new Audio('../Audio/pacman_chomp.wav');
+
 function movePacMan(x, y) {
   if (!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
@@ -372,15 +374,12 @@ function movePacMan(x, y) {
     pacman.x += x;
     pacman.y += y;
   }
-  
   //waka waka waka
-  if (!(x === 0 && y === 0)) {
-    let moveSound = new Audio('Audio/pacman_chomp.wav');
-    if (moveSound.paused || moveSound.ended) {
-      moveSound.currentTime = 0;
-      //moveSound.play();
-    }
+  if (moveSound.paused || moveSound.ended) {
+    moveSound.currentTime = 0;
+    moveSound.play();
   }
+  
 }
 
 moveGhostInterval = setInterval(moveGhost, 50000);
