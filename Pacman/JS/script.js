@@ -14,12 +14,12 @@ let lives = 3;
 let iskeydown = [false, false, false, false];
 
 var mapcollection = [
-  (testmap = [
+  /*(testmap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
     [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]),
+  ]),*/
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -74,7 +74,6 @@ var mapcollection = [
 ];
 
 var mapRandNum = getRandomNumber(3);
-mapRandNum = 0;
 var map = mapcollection[mapRandNum];
 function draw() {
   map = mapcollection[mapRandNum];
@@ -382,5 +381,5 @@ function movePacMan(x, y) {
   
 }
 
-moveGhostInterval = setInterval(moveGhost, 50000);
+moveGhostInterval = setInterval(moveGhost, 500);
 draw();

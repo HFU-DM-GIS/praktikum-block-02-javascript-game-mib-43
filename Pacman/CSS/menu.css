@@ -16,7 +16,7 @@ body {
 h1 {
     font-size: 15vh;
     font-family: "Pacfont", sans-serif;
-    color: #FFFF00;
+    color: #eeff00;
     letter-spacing: 35px;
     text-shadow: 0 0 10px #ffd90093, 0 0 20px #f2ff37, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 60px #ffee00, 0 0 70px #c4b700;
 }
@@ -35,10 +35,16 @@ button {
     margin-top: 1vh;
     width: 55vb;
     height: 10vh;
-    background-color: #181818;
+    background-color: #151515;
     border-radius: 20px;
     font-family: "Pacfont", sans-serif;
     font-size: 6vh;
     color: #FFFF00;
     border-color: rgb(238, 255, 0);
+}
+
+button:hover {
+    color: #151515;
+    background-color: #FFFF00;;
+    border-color: black;
 }

@@ -1,5 +1,5 @@
 * {
-    margin: 0;
+    margin: 20px;
     padding: 0;
     box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(15, 7, 34);
+    background-color: #181818;
     color: #181818;
 }
 
@@ -55,11 +55,11 @@ button {
     background-color: #151515;
     color: #c4c114;
     border: 3px solid;
-    border-color: #0b4b80;
+    border-color: #FFFF00;
     border-radius: 20px;
 }
 
 button:hover {
     background-color: #c4c114;
-    color: rgb(11, 70, 67);
+    color: #151515;
 }
