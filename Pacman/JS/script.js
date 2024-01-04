@@ -79,11 +79,13 @@ function draw() {
   map = mapcollection[mapRandNum];
   if (isGameRunning) {
     for (let index = 0; index < ghostArray.length; index++) {
+      // Vermeidet die "magic number" (5) indem ihr die Schleife bei 5 startet und eine Variable "firstGhostIndex" einführt.
       map[ghostArray[index].y][ghostArray[index].x] = index + 5;
     }
 
     map[pacman.y][pacman.x] = 2;
 
+    // diese Überprüfung ob Pacman einen Geist berührt sollte nicht in der "draw" Funktion stattfinden. Trennt zwischen Gameplay und Zeichnen.
     for (let index = 0; index < ghostArray.length; index++) {
       if (pacman.x === ghostArray[index].x && pacman.y == ghostArray[index].y) {
         lives--;
@@ -113,6 +115,7 @@ function draw() {
     console.log("score:" + score);
     console.log("lives: " + lives);
 
+    // kapselt dieses Zeichnen in einer draw Funktion
     let drawHTML = "";
     for (let y = 0; y < map.length; y++) {
       for (let x = 0; x < map[y].length; x++) {
@@ -289,7 +292,7 @@ function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
-function collision() {
+function collision() { // welche Kollision soll das sein?
   for (let i = 0; i < ghostArray.length; i++) {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
       if (ghostArray[i].isCoverCoin) {
@@ -361,7 +364,7 @@ addEventListener("keyup", function (event) {
 
 let moveSound = new Audio('../Audio/pacman_chomp.wav');
 
-function movePacMan(x, y) {
+function movePacMan(x, y) { // hier besser dx, dy verwenden, da es sich ja um die Veränderung handelt und keine absolute Position
   if (!(map[pacman.y + y][pacman.x + x] === 1)) {
     map[pacman.y][pacman.x] = 4;
     if (map[pacman.y + y][pacman.x + x] === 3) {
