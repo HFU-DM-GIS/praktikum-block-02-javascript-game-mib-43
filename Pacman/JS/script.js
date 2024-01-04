@@ -85,7 +85,7 @@ function draw() {
     map[pacman.y][pacman.x] = 2;
 
     for (let index = 0; index < ghostArray.length; index++) {
-      if(pacman.x === ghostArray[index].x && pacman.y == ghostArray[index].y){
+      if (pacman.x === ghostArray[index].x && pacman.y == ghostArray[index].y) {
         lives--;
         switch (lives) {
           case 2:
@@ -378,7 +378,7 @@ function movePacMan(x, y) {
     moveSound.currentTime = 0;
     moveSound.play();
   }
-  
+
 }
 
 moveGhostInterval = setInterval(moveGhost, 500);
