@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #181818;
+}
+
+.pacman {
+  width: 50px;
+  height: 50px;
+  background: url('../IMG/pacman.gif') no-repeat;
+  background-size: contain;
+  position: absolute;
+  animation: movePacman 3s linear forwards; /* Only once, animation lasts 3 seconds */
+}
+
+.pacman.moveOut {
+  animation: moveOut 3s linear forwards;
+}
+
+.pacman:hover {
+  transform: scale(1.2, 1.2);
+}
+
+.pacman:hover, .pacman.moveOut {
+  background: url('../IMG/pacman_still.png') no-repeat;
+  background-size: contain;
+}
+
+#instruction {
+  display: none;
+  position: absolute;
+  color: white;
+  font-size: 36px;
+  top: calc(50vh - 75px); /* 50% of the screen height - half the height of PacMan (50px) - an additional distance  */
+  left: calc(50vw + 24px); /* 50% of the screen width - half the width of PacMan (50px) + additional spacing (24px) */
+  transform: translateX(-50%); /* Center the text horizontally */
+}
+
+.ghost {
+  width: 50px;
+  height: 50px;
+  background: url('../IMG/ghostRed.png') no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: -50px; /* Start position outside the visible area */
+  top: 50vh; /* Vertical center of the screen */
+  transform: translateX(-50%);
+  display: none; /* Ghost is not displayed by default */
+  animation: moveIn 1.8s linear forwards;
+}
+
+@keyframes moveIn {
+  0% {
+    left: -50px;
+  }
+  100% {
+    left: calc(100vw - 50px); /* Animation to the right to the center of the screen */
+  }
+}
+
+@keyframes movePacman {
+  0% {
+    top: 50vh;
+    left: -50px;
+  }
+  50% {
+    left: 50vw;
+  }
+  100% {
+    left: 50vw;
+    top: 50vh;
+  }
+}
+
+@keyframes moveOut {
+  0% {
+    top: 50vh;
+    left: 50vw;
+  }
+  100% {
+    top: 50vh;
+    left: calc(100vw + 50px); /* Move PacMan further to the right to stay outside the visible area */
+  }
+}
