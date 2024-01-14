@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Pacfont";
+  src: url("../fonts/PacfontGood-yYye.ttf") format("truetype");
+}
+
 body {
   margin: 0;
   overflow: hidden;
@@ -15,7 +20,7 @@ body {
   background: url('../IMG/pacman.gif') no-repeat;
   background-size: contain;
   position: absolute;
-  animation: movePacman 3s linear forwards; /* Only once, animation lasts 3 seconds */
+  animation: movePacman 3s linear forwards;
 }
 
 .pacman.moveOut {
@@ -34,11 +39,12 @@ body {
 #instruction {
   display: none;
   position: absolute;
+  font-family: "Pacfont", sans-serif;
   color: white;
   font-size: 36px;
-  top: calc(50vh - 75px); /* 50% of the screen height - half the height of PacMan (50px) - an additional distance  */
-  left: calc(50vw + 24px); /* 50% of the screen width - half the width of PacMan (50px) + additional spacing (24px) */
-  transform: translateX(-50%); /* Center the text horizontally */
+  top: calc(50vh - 75px);
+  left: calc(50vw + 24px);
+  transform: translateX(-50%);
 }
 
 .ghost {
@@ -47,19 +53,19 @@ body {
   background: url('../IMG/ghostRed.png') no-repeat;
   background-size: contain;
   position: absolute;
-  left: -50px; /* Start position outside the visible area */
-  top: 50vh; /* Vertical center of the screen */
+  left: -50px;
+  top: 50vh; 
   transform: translateX(-50%);
-  display: none; /* Ghost is not displayed by default */
-  animation: moveIn 1.8s linear forwards;
+  display: none;
+  animation: moveGhost 1.8s linear forwards;
 }
 
-@keyframes moveIn {
+@keyframes moveGhost  {
   0% {
     left: -50px;
   }
   100% {
-    left: calc(100vw - 50px); /* Animation to the right to the center of the screen */
+    left: calc(100vw - 50px);
   }
 }
 
@@ -84,6 +90,6 @@ body {
   }
   100% {
     top: 50vh;
-    left: calc(100vw + 50px); /* Move PacMan further to the right to stay outside the visible area */
+    left: calc(100vw + 50px);
   }
 }
