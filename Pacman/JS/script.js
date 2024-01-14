@@ -16,12 +16,12 @@ let iskeydown = [false, false, false, false];
 let ghostOffset = 5;
 
 var mapcollection = [
-  (testmap = [
+  /*(testmap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
     [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]),
+  ]), */
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -229,6 +229,7 @@ let pacman = new Pacman();
 function nextMap() {
   coinsCollected = 0;
   map = mapcollection[activeMap];
+  mapCoinCounter = 0;
   emptyCoins = countMapCoins();
   ghostArray[0] = new Ghost(5);
   ghostArray[1] = new Ghost(6);
@@ -428,7 +429,10 @@ function movePacMan(dx, dy) {
     moveSound.currentTime = 0;
     moveSound.play();
   }
+  console.clear();
+  console.error("emptyCoins: " + emptyCoins);
+  console.error("coinsCollected: " + coinsCollected);
 }
 
-// moveGhostInterval = setInterval(moveGhost, 500);
+moveGhostInterval = setInterval(moveGhost, 500);
 changePosition(); 
