@@ -12,6 +12,7 @@ var coinCounter = 0;
 var score = 0;
 let lives = 3;
 let iskeydown = [false, false, false, false];
+let ghostOffset = 5;
 
 var mapcollection = [
   /*(testmap = [
@@ -75,17 +76,17 @@ var mapcollection = [
 
 var mapRandNum = getRandomNumber(3);
 var map = mapcollection[mapRandNum];
-function draw() {
+
+function changePosition(){
   map = mapcollection[mapRandNum];
   if (isGameRunning) {
     for (let index = 0; index < ghostArray.length; index++) {
-      map[ghostArray[index].y][ghostArray[index].x] = index + 5;
+      map[ghostArray[index].y][ghostArray[index].x] = index + ghostOffset;
     }
 
     map[pacman.y][pacman.x] = 2;
-
     for (let index = 0; index < ghostArray.length; index++) {
-      if (pacman.x === ghostArray[index].x && pacman.y == ghostArray[index].y) {
+      if (pacman.x === ghostArray[index].x && pacman.y === ghostArray[index].y) {
         lives--;
         switch (lives) {
           case 2:
@@ -98,6 +99,21 @@ function draw() {
             document.getElementById("lives").innerHTML = "";
             break;
         }
+        for (let j = 0; j < ghostArray.length; j++) {
+          if(ghostArray[j].isCoverCoin){
+            ghostArray[j].isCoverCoin = false;
+            map[ghostArray[j].y][ghostArray[j].x] = 3;
+          } else {
+            map[ghostArray[j].y][ghostArray[j].x] = 4;
+          }
+          ghostArray[j].x = ghostArray[j].startPosX;
+          ghostArray[j].y = ghostArray[j].startPosY;
+          map[ghostArray[j].y][ghostArray[j].x] = j + ghostOffset
+        }
+        
+        map[pacman.y][pacman.x] = 4;
+        pacman.x = pacman.startPosX;
+        pacman.y = pacman.startPosY;
         break;
       }
     }
@@ -108,61 +124,66 @@ function draw() {
       window.location.href = "gameOver.html";
     }
 
-    console.clear();
+    /*console.clear();
     console.log("emptyCoins: " + emptyCoins);
     console.log("score:" + score);
-    console.log("lives: " + lives);
-
-    let drawHTML = "";
-    for (let y = 0; y < map.length; y++) {
-      for (let x = 0; x < map[y].length; x++) {
-        switch (map[y][x]) {
-          case 1:
-            drawHTML += "<div class='wall asset'></div>";
-            break;
-
-          case 2:
-            drawHTML +=
-              "<div " + pacman.rotation + " class='pacman asset'></div>";
-            break;
-
-          case 3:
-            drawHTML += "<div class='food asset'></div>";
-            break;
-
-          case 4:
-            drawHTML += "<div class='blank asset'></div>";
-            break;
-
-          case 5:
-            drawHTML += "<div class='ghostPink asset'></div>";
-            break;
-
-          case 6:
-            drawHTML += "<div class='ghostRed asset'></div>";
-            break;
-
-          case 7:
-            drawHTML += "<div class='ghostCyan asset'></div>";
-            break;
-
-          case 8:
-            drawHTML += "<div class='ghostOrange asset'></div>";
-            break;
-
-          default:
-            drawHTML += "<div class='blank asset'></div>";
-            console.error("Undefined Element");
-            break;
-        }
-      }
-      drawHTML += "<br>";
-    }
-    document.getElementById("game").innerHTML = drawHTML;
-    collision();
-    winCheck();
+    console.log("lives: " + lives);*/
+  draw();
   }
 }
+
+
+function draw() {
+  let drawHTML = "";
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      switch (map[y][x]) {
+        case 1:
+          drawHTML += "<div class='wall asset'></div>";
+          break;
+
+        case 2:
+          drawHTML +=
+            "<div " + pacman.rotation + " class='pacman asset'></div>";
+          break;
+
+        case 3:
+          drawHTML += "<div class='food asset'></div>";
+          break;
+
+        case 4:
+          drawHTML += "<div class='blank asset'></div>";
+          break;
+
+        case 5:
+          drawHTML += "<div class='ghostPink asset'></div>";
+          break;
+
+        case 6:
+          drawHTML += "<div class='ghostRed asset'></div>";
+          break;
+
+        case 7:
+          drawHTML += "<div class='ghostCyan asset'></div>";
+          break;
+
+        case 8:
+          drawHTML += "<div class='ghostOrange asset'></div>";
+          break;
+
+        default:
+          drawHTML += "<div class='blank asset'></div>";
+          console.error("Undefined Element");
+          break;
+      }
+    }
+    drawHTML += "<br>";
+  }
+  document.getElementById("game").innerHTML = drawHTML;
+  checkGhostCoverCoin();
+  winCheck();
+}
+
 
 class Ghost {
   constructor(id) {
@@ -171,6 +192,8 @@ class Ghost {
         if (map[y][x] === id) {
           this.x = x;
           this.y = y;
+          this.startPosX = x;
+          this.startPosY = y;
           this.isCoverCoin = false;
         }
       }
@@ -192,7 +215,8 @@ class Pacman {
         if (map[y][x] === 2) {
           this.x = x;
           this.y = y;
-          let rotation = "style = transform: rotate(0deg);";
+          this.startPosX = x;
+          this.startPosY = y;
         }
       }
     }
@@ -282,14 +306,14 @@ function moveGhost() {
       }
     }
   }
-  draw();
+  changePosition();
 }
 
 function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
-function collision() {
+function checkGhostCoverCoin() {
   for (let i = 0; i < ghostArray.length; i++) {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
       if (ghostArray[i].isCoverCoin) {
@@ -308,7 +332,7 @@ addEventListener("keypress", function (event) {
         // move up
         movePacMan(0, -1);
         pacman.rotation = "style = transform:rotate(270deg);";
-        draw();
+        changePosition();
         iskeydown[0] = true;
         break;
 
@@ -316,7 +340,7 @@ addEventListener("keypress", function (event) {
         //move left
         movePacMan(-1, 0);
         pacman.rotation = "style = transform:scaleX(-1);";
-        draw();
+        changePosition();
         iskeydown[1] = true;
         break;
 
@@ -324,7 +348,7 @@ addEventListener("keypress", function (event) {
         //move down
         movePacMan(0, 1);
         pacman.rotation = "style = transform:rotate(90deg);";
-        draw();
+        changePosition();
         iskeydown[2] = true;
         break;
 
@@ -332,8 +356,11 @@ addEventListener("keypress", function (event) {
         //move right
         movePacMan(1, 0);
         pacman.rotation = "style = transform:rotate(0deg);";
-        draw();
+        changePosition();
         iskeydown[3] = true;
+        break;
+      case "z":
+        moveGhost();
         break;
     }
   }
@@ -361,25 +388,24 @@ addEventListener("keyup", function (event) {
 
 let moveSound = new Audio('../Audio/pacman_chomp.wav');
 
-function movePacMan(x, y) {
-  if (!(map[pacman.y + y][pacman.x + x] === 1)) {
+function movePacMan(dx, dy) {
+  if (!(map[pacman.y + dy][pacman.x + dx] === 1)) {
     map[pacman.y][pacman.x] = 4;
-    if (map[pacman.y + y][pacman.x + x] === 3) {
+    if (map[pacman.y + dy][pacman.x + dx] === 3) {
       score++;
       document.getElementById("score").innerHTML = ": " + score
     }
 
-    map[pacman.y + y][pacman.x + x] = 2;
-    pacman.x += x;
-    pacman.y += y;
+    map[pacman.y + dy][pacman.x + dx] = 2;
+    pacman.x += dx;
+    pacman.y += dy;
   }
   //waka waka waka
   if (moveSound.paused || moveSound.ended) {
     moveSound.currentTime = 0;
     moveSound.play();
   }
-
 }
 
 moveGhostInterval = setInterval(moveGhost, 500);
-draw();
+changePosition();
