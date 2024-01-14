@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Pacfont";
+  src: url("../fonts/PacfontGood-yYye.ttf") format("truetype");
+}
+
 body {
   margin: 0;
   overflow: hidden;
@@ -34,6 +39,7 @@ body {
 #instruction {
   display: none;
   position: absolute;
+  font-family: "Pacfont", sans-serif;
   color: white;
   font-size: 36px;
   top: calc(50vh - 75px); /* 50% of the screen height - half the height of PacMan (50px) - an additional distance  */
@@ -50,11 +56,11 @@ body {
   left: -50px; /* Start position outside the visible area */
   top: 50vh; /* Vertical center of the screen */
   transform: translateX(-50%);
-  display: none; /* Ghost is not displayed by default */
-  animation: moveIn 1.8s linear forwards;
+  display: none;
+  animation: moveGhost 1.8s linear forwards;
 }
 
-@keyframes moveIn {
+@keyframes moveGhost  {
   0% {
     left: -50px;
   }

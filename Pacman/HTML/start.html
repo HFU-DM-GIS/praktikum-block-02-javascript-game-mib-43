@@ -10,7 +10,7 @@
   <div class="pacman-container">
     <div class="pacman" id="pacman"></div>
     <div class="ghost" id="ghost"></div>
-    <div id="instruction">Klicke auf PacMan!</div>
+    <div id="instruction">Click PacMan!</div>
   </div>
 
   <script>
@@ -23,7 +23,7 @@
       pacman.addEventListener('click', function () {
         pacman.style.animation = 'moveOut 2s linear forwards'; // Start the moveOut animation
         ghost.style.display = 'block';
-        ghost.classList.add('moveIn');
+        ghost.classList.add('moveGhost');
         instruction.style.display = 'none'; //Hide the text on click
         pacmanClicked = true;
       });
@@ -35,7 +35,6 @@
         if (!pacmanClicked) {
           instruction.style.display = 'block'; // Show the text, unless PacMan was clicked
         } else {
-          // Redirection to the 'menu.html' page
           window.location.href = 'menu.html';
         }
       });
