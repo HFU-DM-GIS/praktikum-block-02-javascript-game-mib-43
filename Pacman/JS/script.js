@@ -8,19 +8,20 @@
 // 8 = ghost orange
 
 var isGameRunning = true;
-var coinCounter = 0;
+var mapCoinCounter = 0;
+var coinsCollected = 0;
 var score = 0;
 let lives = 3;
 let iskeydown = [false, false, false, false];
 let ghostOffset = 5;
 
 var mapcollection = [
-  /*(testmap = [
+  (testmap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
     [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]),*/
+  ]),
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -74,11 +75,11 @@ var mapcollection = [
   ]),
 ];
 
-var mapRandNum = getRandomNumber(3);
-var map = mapcollection[mapRandNum];
+var activeMap = 0;
+var map = mapcollection[activeMap];
 
 function changePosition(){
-  map = mapcollection[mapRandNum];
+  map = mapcollection[activeMap];
   if (isGameRunning) {
     for (let index = 0; index < ghostArray.length; index++) {
       map[ghostArray[index].y][ghostArray[index].x] = index + ghostOffset;
@@ -225,26 +226,46 @@ class Pacman {
 
 let pacman = new Pacman();
 
-let emptyCoins = countCoins();
+function nextMap() {
+  coinsCollected = 0;
+  map = mapcollection[activeMap];
+  emptyCoins = countMapCoins();
+  ghostArray[0] = new Ghost(5);
+  ghostArray[1] = new Ghost(6);
+  ghostArray[2] = new Ghost(7);
+  ghostArray[3] = new Ghost(8);
+
+  pacman = new Pacman();
+  changePosition();
+}
+
+let emptyCoins = countMapCoins();
 console.log("emptyCoins: " + emptyCoins);
 
-function countCoins() {
+function countMapCoins() {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
       if (map[y][x] === 3) {
-        coinCounter++;
+        mapCoinCounter++;
       }
     }
   }
-  return coinCounter;
+  return mapCoinCounter;
 }
 
 function winCheck() {
-  if (emptyCoins === score) {
-    clearInterval(moveGhostInterval);
-    isGameRunning = false;
-    console.log("win");
-    window.location.href = "win.html";
+  if (emptyCoins === coinsCollected) {
+    if (activeMap === 2) {
+      clearInterval(moveGhostInterval);
+      isGameRunning = false;
+      console.log("win");
+      window.location.href = "win.html";
+    } 
+    else {
+      activeMap++;
+      nextMap();
+    }
+
   }
 }
 
@@ -317,8 +338,9 @@ function checkGhostCoverCoin() {
   for (let i = 0; i < ghostArray.length; i++) {
     if (ghostArray[i].x === pacman.x && ghostArray[i].y === pacman.y) {
       if (ghostArray[i].isCoverCoin) {
+        coinsCollected++;
         score++;
-        document.getElementById("score").innerHTML = ": " + score
+        document.getElementById("score").innerHTML = ": " + coinsCollected
         ghostArray[i].isCoverCoin = false;
       }
     }
@@ -392,8 +414,9 @@ function movePacMan(dx, dy) {
   if (!(map[pacman.y + dy][pacman.x + dx] === 1)) {
     map[pacman.y][pacman.x] = 4;
     if (map[pacman.y + dy][pacman.x + dx] === 3) {
+      coinsCollected++;
       score++;
-      document.getElementById("score").innerHTML = ": " + score
+      document.getElementById("score").innerHTML = ": " + score;
     }
 
     map[pacman.y + dy][pacman.x + dx] = 2;
@@ -407,5 +430,5 @@ function movePacMan(dx, dy) {
   }
 }
 
-moveGhostInterval = setInterval(moveGhost, 500);
-changePosition();
+// moveGhostInterval = setInterval(moveGhost, 500);
+changePosition(); 
