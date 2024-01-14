@@ -21,19 +21,19 @@
       let pacmanClicked = false;
 
       pacman.addEventListener('click', function () {
-        pacman.style.animation = 'moveOut 2s linear forwards'; // Start the moveOut animation
+        pacman.style.animation = 'moveOut 2s linear forwards';
         ghost.style.display = 'block';
         ghost.classList.add('moveGhost');
-        instruction.style.display = 'none'; //Hide the text on click
+        instruction.style.display = 'none';
         pacmanClicked = true;
       });
 
       pacman.addEventListener('animationend', function () {
         pacman.style.backgroundImage = "url('../IMG/pacman_still.png')";
-        pacman.style.left = '100vw'; // Position PacMan on the right outside the visible area
-        pacman.style.animation = ''; // Reset the animation
+        pacman.style.left = '100vw';
+        pacman.style.animation = ''; 
         if (!pacmanClicked) {
-          instruction.style.display = 'block'; // Show the text, unless PacMan was clicked
+          instruction.style.display = 'block';
         } else {
           window.location.href = 'menu.html';
         }
