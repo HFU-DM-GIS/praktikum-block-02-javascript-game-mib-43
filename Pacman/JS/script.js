@@ -16,12 +16,12 @@ let iskeydown = [false, false, false, false];
 let ghostOffset = 5;
 
 var mapcollection = [
-  /*(testmap = [
+  (testmap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
     [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]), */
+  ]),
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -115,6 +115,7 @@ function changePosition(){
         map[pacman.y][pacman.x] = 4;
         pacman.x = pacman.startPosX;
         pacman.y = pacman.startPosY;
+        changePosition();
         break;
       }
     }
@@ -122,6 +123,10 @@ function changePosition(){
     if (lives <= 0) {
       clearInterval(moveGhostInterval);
       isGameRunning = false;
+      if(localStorage){
+        localStorage.setItem('totalScore', JSON.stringify(score));
+        console.error(score);
+      }
       window.location.href = "gameOver.html";
     }
 
@@ -256,10 +261,14 @@ function countMapCoins() {
 
 function winCheck() {
   if (emptyCoins === coinsCollected) {
-    if (activeMap === 2) {
+    if (activeMap === 0) {
       clearInterval(moveGhostInterval);
       isGameRunning = false;
       console.log("win");
+      if(localStorage){
+        localStorage.setItem('totalScore', JSON.stringify(score));
+        console.error(score);
+      }
       window.location.href = "win.html";
     } 
     else {
@@ -434,5 +443,5 @@ function movePacMan(dx, dy) {
   console.error("coinsCollected: " + coinsCollected);
 }
 
-moveGhostInterval = setInterval(moveGhost, 500);
+moveGhostInterval = setInterval(moveGhost, 50000);
 changePosition(); 

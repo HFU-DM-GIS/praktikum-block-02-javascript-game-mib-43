@@ -1,34 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Over</title>
-    <link rel="stylesheet" href="../CSS/losing.css" type="text/css" />
+    <link rel="stylesheet" href="../CSS/win.css" type="text/css" />
+    <title>PacMan</title>
 </head>
 
 <body>
-    <div id = 'game-over'>
-        
-        <!--Game over screen-->
-        <img src="../IMG/ghostPink.png" alt="ghostPink">
-        <img id="pacman" src="../IMG/pacman.gif" alt="pacman">
-        <img src="../IMG/ghostRed.png" alt="ghostRed" style = "transform: scaleX(-1)">
-        <h1>GAME OVER!</h1>
-        <h3>BETTER LUCK NEXT TIME</h3>
-
-        <!--Button-->
-        <div id = 'button'>
-            <button type = 'reset' onclick = "window.location.href = 'game.html';">Try Again</button>
-            <button type = 'button' onclick = "window.location.href = 'menu.html';">Main Menu</button>
+    <div class="win">
+        <div id='win' class='win-screen'>
+            <h1>GAME OVER!</h1>
+            <div class="scorecontainer">
+                <p id="scoretitle">SCORE</p>
+                <p id="score">: 0</p>
+            </div>
+            <div class="scoreboardContainer">
+                <h2>SCOREBOARD</h2>
+                <p id="p1">1. Player - 000</p>
+                <p id="p2">2. Player - 000</p>
+                <p id="p3">3. Player - 000</p>
+                <div class="newScore" id="newScore">
+                    <input type="text" placeholder="Nickname" id="nicknameinput" name="nickname">
+                    <button id="submit-button" onclick="updateScoreboard()">SUBMIT</button>
+                </div>
+            </div>
+            <div class="button-container">
+                <a href="menu.html" class="menu-button">Menu</a>
+                <a href="game.html" class="restart-button">Restart Game</a>
+            </div>
         </div>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-          let deathSound = new Audio('../Audio/pacman_death.wav');
-          deathSound.play();
+            let looseSound = new Audio('../Audio/pacman_death.wav');
+            looseSound.play();
+
+            const savedScores = localStorage.getItem('totalScore');
+            console.warn(savedScores);
+            document.getElementById("score").innerHTML = ": " + savedScores;
+
+            if (!localStorage.getItem('scoresList')) {
+                let defaultScoresList = [
+                    {
+                        name: 'Ali',
+                        score: '3',
+                    },
+                    {
+                        name: 'Nico',
+                        score: '2',
+                    },
+                    {
+                        name: 'Alex',
+                        score: '1',
+                    }
+                ];
+                localStorage.setItem('scoresList', JSON.stringify(defaultScoresList));
+            }
+            updateScoreboardDisplay(JSON.parse(localStorage.getItem('scoresList')));
+            let scoresList = JSON.parse(localStorage.getItem('scoresList')) || [];
+            if(scoresList.some(entry => localStorage.getItem('totalScore') >= entry.score)){
+                document.getElementById("newScore").style.display = "flex";
+            }
         });
-    </script>
-      
+
+        function updateScoreboard() {
+            const newScore = localStorage.getItem('totalScore');
+            let scoresList = JSON.parse(localStorage.getItem('scoresList')) || [];
+            const isHighScore = scoresList.some(entry => newScore >= entry.score);
+
+            if (isHighScore) {
+
+                const nickname = document.getElementById("nicknameinput").value;
+
+                scoresList.push({ name: nickname, score: newScore });
+
+                scoresList.sort((a, b) => b.score - a.score || a.timestamp - b.timestamp);
+
+                scoresList = scoresList.slice(0, 3);
+
+                localStorage.setItem('scoresList', JSON.stringify(scoresList));
+
+                updateScoreboardDisplay(scoresList);
+            }
+            if (!document.getElementById("nicknameinput").value == "") {
+                document.getElementById("newScore").style.display = "none";
+            }
+        }
+        addEventListener("keypress", function (event) {
+            if(event.key == "$"){
+                let defaultScoresList = [
+                    {
+                        name: 'Ali',
+                        score: '3',
+                    },
+                    {
+                        name: 'Nico',
+                        score: '2',
+                    },
+                    {
+                        name: 'Alex',
+                        score: '1',
+                    }
+                ];
+                localStorage.setItem('scoresList', JSON.stringify(defaultScoresList));
+                updateScoreboardDisplay(JSON.parse(localStorage.getItem('scoresList')));
+            }
+        });
+
+        function updateScoreboardDisplay(scoresList) {
+            // Update the displayed scoreboard with the current top 3 scores
+            document.getElementById("p1").innerHTML = `1. ${scoresList[0].name} - ${scoresList[0].score}`;
+            document.getElementById("p2").innerHTML = `2. ${scoresList[1].name} - ${scoresList[1].score}`;
+            document.getElementById("p3").innerHTML = `3. ${scoresList[2].name} - ${scoresList[2].score}`;
+        }
+    </script>     
 </body>
+
 </html>
