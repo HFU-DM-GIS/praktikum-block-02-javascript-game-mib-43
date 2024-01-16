@@ -16,12 +16,12 @@ let iskeydown = [false, false, false, false];
 let ghostOffset = 5;
 
 var mapcollection = [
-  (testmap = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  /* (testmap = [
+    [1, 1, 1, , 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 5, 4, 1, 6, 4, 1, 7, 4, 1, 8, 4, 1],
     [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]),
+  ]), */
   (mapNico = [
     //map0
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -261,7 +261,7 @@ function countMapCoins() {
 
 function winCheck() {
   if (emptyCoins === coinsCollected) {
-    if (activeMap === 0) {
+    if (activeMap === 2) {
       clearInterval(moveGhostInterval);
       isGameRunning = false;
       console.log("win");
@@ -443,5 +443,5 @@ function movePacMan(dx, dy) {
   console.error("coinsCollected: " + coinsCollected);
 }
 
-moveGhostInterval = setInterval(moveGhost, 50000);
+moveGhostInterval = setInterval(moveGhost, 500);
 changePosition(); 
