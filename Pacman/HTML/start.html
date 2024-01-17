@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/start.css" type="text/css" />
+  <title>Loading...</title>
+</head>
+<body>
+  <div class="pacman-container">
+    <div class="pacman" id="pacman"></div>
+    <div class="ghost" id="ghost"></div>
+    <div id="instruction">Click PacMan!</div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const pacman = document.getElementById('pacman');
+      const ghost = document.getElementById('ghost');
+      const instruction = document.getElementById('instruction');
+      let pacmanClicked = false;
+
+      pacman.addEventListener('click', function () {
+        pacman.style.animation = 'moveOut 2s linear forwards';
+        ghost.style.display = 'block';
+        ghost.classList.add('moveGhost');
+        instruction.style.display = 'none';
+        pacmanClicked = true;
+      });
+
+      pacman.addEventListener('animationend', function () {
+        pacman.style.backgroundImage = "url('../IMG/pacman_still.png')";
+        pacman.style.left = '100vw';
+        pacman.style.animation = ''; 
+        if (!pacmanClicked) {
+          instruction.style.display = 'block';
+        } else {
+          window.location.href = 'menu.html';
+        }
+      });
+
+      pacman.addEventListener('mouseover', function () {
+        if (!pacmanClicked) {
+          instruction.style.display = 'block';
+          pacman.style.backgroundImage = "url('../IMG/pacman.gif')";
+        }
+      });
+
+      pacman.addEventListener('mouseout', function () {
+        if (!pacmanClicked) {
+          pacman.style.backgroundImage = "url('../IMG/pacman_still.png')";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
